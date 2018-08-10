@@ -3,23 +3,33 @@ import React from 'react';
 export const CreateMap = (poke, index, listType, fnDelete, fnEdit) => {
     let middleIndex = poke.moves.length % 2 === 0 ? poke.moves.length / 2 : Math.floor(poke.moves.length / 2)
     let secondMoveName = poke.moves[middleIndex].move.name;
-
-    let buttonsHtml = listType === 'userCreated' ? (
-        <tr id={poke._id}>
-            <td className="text-left"> <button type="button" className="btn btn-warning" onClick={fnEdit}>edit</button> </td>
-            <td className="text-right"><button type="button" className="btn btn-danger" onClick={fnDelete}>delete</button></td>
-        </tr>
-    ) : ''
+    let buttonsHtml;
+    if (listType) {
+        buttonsHtml =
+            <tr id={poke._id}>
+                <td className="text-left"> <button type="button" className="btn btn-warning" onClick={fnEdit}>edit</button> </td>
+                <td className="text-right"><button type="button" className="btn btn-danger" onClick={fnDelete}>delete</button></td>
+            </tr>
+    } else if (!poke.swapped) {
+        buttonsHtml =
+            <tr id={index}>
+                <td className="text-left">
+                    <button type="button" className="btn btn" onClick={fnEdit}>
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" /> swap
+                    </button>
+                </td>
+            </tr>
+    }
     return (
-        <div className="col-md-6" key={poke.id}>
+        <div className="col-md-6" key={listType ? index + 1 : poke.id}>
             <div className="media">
                 <div className="media-left">
-                    <img src={poke.sprites.front_default} width="154px" height="128px" alt="sprite image" />
+                    <img src={poke.sprites.front_default} width="154px" height="128px" />
                 </div>
                 <div className="media-body">
                     <h3 className="media-heading">
                         <span className="text-right text-strong text-capitalize">{poke.name}</span>
-                        <span className="text-right text-muted"> #{index + 1 ? index + 1 : poke.id}</span>
+                        <span className="text-right text-muted"> #{listType ? index + 1 : poke.id}</span>
                     </h3>
                     <table className="table table-condensed">
                         <tbody>

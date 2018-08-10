@@ -66,11 +66,11 @@ class CreateTeam extends React.Component {
                 { move: { name: this.state.specialAttack } }
             ],
             stats: [
-                { base_stat: Math.floor(Math.random() * 51) + 1, stat: { name: "speed" } }, // percentage attack misses
+                { base_stat: Math.floor(Math.random() * 51) + 1, stat: { name: "speed" } }, // difference between you and enemy = percentage attack misses, passive
                 { base_stat: Math.floor(Math.random() * 51) + 1, stat: { name: "special-defense" } }, // not used
-                { base_stat: Math.floor(Math.random() * (30 - 20 + 1) + 20), stat: { name: "special-attack" } },
-                { base_stat: Math.floor(Math.random() * 26) + 1, stat: { name: "defense" } }, // percentage blocked
-                { base_stat: Math.floor(Math.random() * 16) + 1, stat: { name: "attack" } },
+                { base_stat: Math.floor(Math.random() * (30 - 20 + 1) + 20), stat: { name: "special-attack" } }, // ap 5
+                { base_stat: Math.floor(Math.random() * 26) + 1, stat: { name: "defense" } }, // percentage blocked when defending, ap 5
+                { base_stat: Math.floor(Math.random() * 16) + 1, stat: { name: "attack" } }, // ap 5
                 { base_stat: Math.floor(Math.random() * (99 - 30 + 1) + 30), stat: { name: "hp" } },
             ]
         }
@@ -107,7 +107,6 @@ class CreateTeam extends React.Component {
                         placeholder="Enter text"
                         name="attack"
                         onChange={this.onChangeHandler} />
-
                     <ControlLabel>special attack name</ControlLabel>
                     <FormControl
                         type="text"
@@ -135,7 +134,6 @@ class CreateTeam extends React.Component {
                 </FormGroup>
                 <button type="button" className="btn btn-primary" onClick={this.continueHandler}>continue</button>
                 <button type="button" className="btn btn-warning" onClick={this.goBackHandler}>go back</button>
-
             </form>
         )
     }
