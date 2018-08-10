@@ -21,7 +21,6 @@ class CreateTeam extends React.Component {
                 url: 'http://localhost:8080/api/pokemon/' + this.props.match.params.id
             })
                 .then(response => {
-                    console.log(response.data)
                     this.setState({
                         name: response.data.name,
                         attack: response.data.moves[0].move.name,
@@ -34,13 +33,10 @@ class CreateTeam extends React.Component {
     }
 
     onChangeHandler = e => {
-        this.setState({
-            [e.target.name]: e.target.value
-        });
+        this.setState({ [e.target.name]: e.target.value });
     }
 
     onDrop = (acceptedFiles) => {
-        console.log(acceptedFiles)
         this.setState(prev => {
             const newState = {
                 ...prev,
@@ -51,15 +47,13 @@ class CreateTeam extends React.Component {
         })
     }
 
-    goBackHandler = () => {
-        this.props.history.goBack();
-    }
+    goBackHandler = () => this.props.history.goBack();
 
     continueHandler = () => {
         const pokeObj = {
             name: this.state.name,
             sprites: {
-                front_default: this.state.imageUrl ? this.state.imageUrl : 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405'
+                front_default: this.state.imageUrl
             },
             moves: [
                 { move: { name: this.state.attack } },
@@ -74,17 +68,14 @@ class CreateTeam extends React.Component {
                 { base_stat: Math.floor(Math.random() * (99 - 30 + 1) + 30), stat: { name: "hp" } },
             ]
         }
-
         let method = this.props.match.params.id ? 'PUT' : 'POST';
-
+        let url = this.props.match.params.id ? "http://localhost:8080/api/pokemon/" + this.props.match.params.id : "http://localhost:8080/api/pokemon";
         axios({
             method: method,
-            url: "http://localhost:8080/api/pokemon/" + this.props.match.params.id,
+            url: url,
             data: pokeObj
         })
-            .then(response => {
-                console.log(response)
-            })
+            .then(() => this.props.history.push("/list"))
             .catch(err => console.log(err))
     }
 
@@ -114,20 +105,21 @@ class CreateTeam extends React.Component {
                         placeholder="Enter text"
                         name="specialAttack"
                         onChange={this.onChangeHandler} />
-                    <ControlLabel>image</ControlLabel>
+                    <ControlLabel>image link</ControlLabel>
                     <FormControl
                         type="text"
                         value={this.state.imageUrl}
                         placeholder="Enter link to image"
                         name="imageUrl"
                         onChange={this.onChangeHandler} />
+                    <ControlLabel>dropzone</ControlLabel>
                     <Dropzone
                         accept="image/*"
                         onDrop={this.onDrop}
                         type="file"
                         name="imageUrl"
                         className="form-control rounded text-muted">
-                        {this.state.imageUrl || 'drag file or click to add'}
+                        drag file or click to add
                     </Dropzone>
                     <ControlLabel>image preview </ControlLabel>
                     <img src={this.state.imageUrl} width="100px" height="100px" />

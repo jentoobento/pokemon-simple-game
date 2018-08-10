@@ -4,6 +4,7 @@ import Menu from './Menu';
 import ChoosePokemon from "./ChoosePokemon";
 import CreateTeam from "./CreateTeam";
 import UserCreatedTeamList from "./UserCreatedTeamList";
+import FightScreen from "./FightScreen";
 
 class Index extends React.Component {
     constructor(props) {
@@ -19,6 +20,7 @@ class Index extends React.Component {
                 <Route exact path="/create" component={CreateTeam} />
                 <Route exact path="/list" component={UserCreatedTeamList} />
                 <Route exact path="/list/:id" component={CreateTeam} />
+                <Route exact path="/fight" component={FightScreen} />
             </React.Fragment>
         );
     }

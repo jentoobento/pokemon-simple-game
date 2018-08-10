@@ -15,9 +15,7 @@ class ChoosePokemon extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({
-            message: 'assembling team.....'
-        })
+        this.setState({ message: 'assembling team....' })
         // get random num 1-802
         let num1 = Math.floor(Math.random() * 803) + 1;
         let num2 = Math.floor(Math.random() * 803) + 1;
@@ -41,7 +39,13 @@ class ChoosePokemon extends React.Component {
                             const newPoke = { ...poke };
                             newPoke.swapped = true;
                             return newPoke
-                        })
+                        }),
+                        message: this.state.backupTeam.length < 3 ? 'assembling team........' : 'team is ready!!!'
+                    })
+                })
+                .then(() => {
+                    this.setState({
+                        message: this.state.backupTeam.length < 3 ? 'assembling team........' : 'team is ready!!!'
                     })
                 })
                 .catch(err => console.log('Error getting poke', err));
@@ -59,7 +63,7 @@ class ChoosePokemon extends React.Component {
 
     getRandomPoke = e => {
         this.setState({
-            message: 'team chosen!!!',
+            message: this.state.backupTeam.length < 3 ? 'please wait...' : 'team chosen!!!',
             btnClick: true
         })
     }
@@ -68,22 +72,15 @@ class ChoosePokemon extends React.Component {
         let swapIndex = e.target.parentElement.parentElement.id
         let newTeam = this.state.team;
         newTeam[swapIndex] = this.state.backupTeam[swapIndex];
-        this.setState({
-            team: newTeam
-        })
+        this.setState({ team: newTeam })
     }
 
-    cancelHandler = e => {
-        this.props.history.goBack();
-    }
+    cancelHandler = e => this.props.history.goBack();
 
-    fightHandler = e => {
-        console.log('fight')
-    }
+    fightHandler = e => this.props.history.push("/fight");
 
     render() {
         const teamHtml = this.state.btnClick && this.state.team.map((poke, index) => CreateMap.CreateMap(poke, index, '', '', this.swapPoke))
-
         return (
             <React.Fragment>
                 <button type="button" style={{ "backgroundColor": "#d14142", "color": "white" }} className="btn btn" onClick={this.getRandomPoke}>I Choose You!!!</button>
