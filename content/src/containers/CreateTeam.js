@@ -10,8 +10,7 @@ class CreateTeam extends React.Component {
             name: '',
             attack: '',
             specialAttack: '',
-            imageUrl: '',
-            imagePreview: 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405',
+            imageUrl: 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405'
         };
     }
 
@@ -23,6 +22,12 @@ class CreateTeam extends React.Component {
             })
                 .then(response => {
                     console.log(response.data)
+                    this.setState({
+                        name: response.data.name,
+                        attack: response.data.moves[0].move.name,
+                        specialAttack: response.data.moves[1].move.name,
+                        imageUrl: response.data.sprites.front_default
+                    })
                 })
                 .catch(err => console.log(err))
         }
@@ -32,13 +37,6 @@ class CreateTeam extends React.Component {
         this.setState({
             [e.target.name]: e.target.value
         });
-    }
-
-    onImageUpload = e => {
-        this.setState({
-            imageUrl: e.target.value,
-            imagePreview: e.target.value
-        })
     }
 
     onDrop = (acceptedFiles) => {
@@ -77,9 +75,11 @@ class CreateTeam extends React.Component {
             ]
         }
 
+        let method = this.props.match.params.id ? 'PUT' : 'POST';
+
         axios({
-            method: 'POST',
-            url: "http://localhost:8080/api/pokemon",
+            method: method,
+            url: "http://localhost:8080/api/pokemon/" + this.props.match.params.id,
             data: pokeObj
         })
             .then(response => {
@@ -121,7 +121,7 @@ class CreateTeam extends React.Component {
                         value={this.state.imageUrl}
                         placeholder="Enter link to image"
                         name="imageUrl"
-                        onChange={this.onImageUpload} />
+                        onChange={this.onChangeHandler} />
                     <Dropzone
                         accept="image/*"
                         onDrop={this.onDrop}
@@ -131,7 +131,7 @@ class CreateTeam extends React.Component {
                         {this.state.imageUrl || 'drag file or click to add'}
                     </Dropzone>
                     <ControlLabel>image preview </ControlLabel>
-                    <img src={this.state.imagePreview} width="100px" height="100px" />
+                    <img src={this.state.imageUrl} width="100px" height="100px" />
                 </FormGroup>
                 <button type="button" className="btn btn-primary" onClick={this.continueHandler}>continue</button>
                 <button type="button" className="btn btn-warning" onClick={this.goBackHandler}>go back</button>

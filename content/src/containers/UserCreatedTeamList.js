@@ -61,6 +61,7 @@ class UserCreatedTeamList extends React.Component {
                     <h1>all ur fugly things</h1>
                     <button type="button" className="btn btn-warning" onClick={this.goBackHandler}>go back</button>
                     <br />
+                    <br />
                     {allItemsHtml}
                 </div>
             </React.Fragment>

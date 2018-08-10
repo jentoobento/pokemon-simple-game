@@ -6,6 +6,7 @@ module.exports = {
     readAll: readAll,
     readById: readById,
     create: create,
+    update: update,
     delete: _delete
 }
 
@@ -47,6 +48,18 @@ function create(req, res) {
         })
         .catch(error => {
             console.log(error)
+            res.status(500).send(error)
+        })
+}
+
+function update(req, res) {
+    conn.db().collection('pokemon')
+        .update({ "_id": ObjectId(req.params.id) }, {$set: req.body})
+        .then(() => {
+            res.status(200).send('success')
+        })
+        .catch(error => {
+            console.log(error);
             res.status(500).send(error)
         })
 }
