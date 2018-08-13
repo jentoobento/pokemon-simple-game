@@ -69,7 +69,8 @@ class ChoosePokemon extends React.Component {
     }
 
     swapPoke = e => {
-        let swapIndex = e.target.parentElement.parentElement.id
+        // let swapIndex = e.target.parentElement.parentElement.id
+        let swapIndex = e.target.parentElement.id
         let newTeam = this.state.team;
         newTeam[swapIndex] = this.state.backupTeam[swapIndex];
         this.setState({ team: newTeam })
@@ -81,13 +82,26 @@ class ChoosePokemon extends React.Component {
 
     render() {
         const teamHtml = this.state.btnClick && this.state.team.map((poke, index) => CreateMap.CreateMap(poke, index, '', '', this.swapPoke))
+
         return (
             <React.Fragment>
-                <button type="button" style={{ "backgroundColor": "#d14142", "color": "white" }} className="btn btn" onClick={this.getRandomPoke}>I Choose You!!!</button>
+    <div className="container">
+      <h1 class="my-4">Your Team
+        <small> {this.state.message}</small>
+      </h1>
+      <p>a random team will be chosen, you can swap once</p>
+      <p><button type="button" style={{ "backgroundColor": "#d14142", "color": "white" }} className="btn btn" onClick={this.getRandomPoke}>I Choose You!!!</button></p>
+      <div class="row">
+     
+{teamHtml}
+      </div>
+      <button type="button" className="btn btn-default" onClick={this.cancelHandler}>Cancel</button>
+    </div>
+                {/* <button type="button" style={{ "backgroundColor": "#d14142", "color": "white" }} className="btn btn" onClick={this.getRandomPoke}>I Choose You!!!</button>
                 <button type="button" style={{ "backgroundColor": "#000", "color": "white" }} className="btn btn" onClick={this.cancelHandler}>Retreat coward</button>
                 <button type="button" className="btn btn-default" onClick={this.fightHandler}>fight with this team!</button>
                 <p>{this.state.message}</p>
-                {teamHtml}
+                {teamHtml} */}
             </React.Fragment>
         )
     }

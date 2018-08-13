@@ -4,14 +4,22 @@ import axios from 'axios'
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 
 class CreateTeam extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            attack: '',
-            specialAttack: '',
-            imageUrl: 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405'
-        };
+    // constructor(props) {
+    //     super(props);
+        // this.state = {
+        //     name: '',
+        //     attack: '',
+        //     specialAttack: '',
+        //     imageUrl: 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405'
+        // };
+    // }
+
+    state = {
+        name: '',
+        attack: '',
+        specialAttack: '',
+        imageUrl: 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405'
+    
     }
 
     componentDidMount() {
