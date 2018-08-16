@@ -50,15 +50,6 @@ class ChoosePokemon extends React.Component {
                 })
                 .catch(err => console.log('Error getting poke', err));
         }
-
-        // axios({
-        //     method: 'GET',
-        //     url: 'https://localhost:8080/pokemon/'
-        // })
-        //     .then(poke => {
-        //         console.log(poke)
-        //     })
-        //     .catch(err => console.log('Error getting poke', err));
     }
 
     getRandomPoke = e => {
@@ -69,7 +60,6 @@ class ChoosePokemon extends React.Component {
     }
 
     swapPoke = e => {
-        // let swapIndex = e.target.parentElement.parentElement.id
         let swapIndex = e.target.parentElement.id
         let newTeam = this.state.team;
         newTeam[swapIndex] = this.state.backupTeam[swapIndex];
@@ -85,18 +75,19 @@ class ChoosePokemon extends React.Component {
 
         return (
             <React.Fragment>
-    <div className="container">
-      <h1 class="my-4">Your Team
-        <small> {this.state.message}</small>
-      </h1>
-      <p>a random team will be chosen, you can swap once</p>
-      <p><button type="button" style={{ "backgroundColor": "#d14142", "color": "white" }} className="btn btn" onClick={this.getRandomPoke}>I Choose You!!!</button></p>
-      <div class="row">
-     
-{teamHtml}
-      </div>
-      <button type="button" className="btn btn-default" onClick={this.cancelHandler}>Cancel</button>
-    </div>
+                <div className="container">
+                    <h1 class="my-4">Your Team
+                        <small> {this.state.message}</small>
+                    </h1>
+                    <p>a random team will be chosen, you can swap once<br />
+                        <button type="button" className="btn btn-danger" onClick={this.getRandomPoke}>I Choose You!!!</button>&nbsp;
+                        {this.state.btnClick && <button type="button" className="btn btn-default" onClick={this.fightHandler}>Fight with this team!</button>}
+                    </p>
+                    <div class="row">
+                        {teamHtml}
+                    </div>
+                    <button type="button" className="btn btn-default" onClick={this.cancelHandler}>Cancel</button>
+                </div>
                 {/* <button type="button" style={{ "backgroundColor": "#d14142", "color": "white" }} className="btn btn" onClick={this.getRandomPoke}>I Choose You!!!</button>
                 <button type="button" style={{ "backgroundColor": "#000", "color": "white" }} className="btn btn" onClick={this.cancelHandler}>Retreat coward</button>
                 <button type="button" className="btn btn-default" onClick={this.fightHandler}>fight with this team!</button>

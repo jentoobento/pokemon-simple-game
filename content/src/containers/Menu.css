@@ -1,0 +1,17 @@
+.left-column {
+    width: 200px;
+    min-height: 1050px;
+    margin: -20px;
+    height: 100%;
+    background-color: tomato;
+    color: tomato;
+    float: left;
+    z-index: -1000;
+    position: absolute;
+}
+img {
+    box-shadow: -4px 9px 23px -2px rgba(0,0,0,0.75);
+}
+.header {
+    text-align: center;
+}
