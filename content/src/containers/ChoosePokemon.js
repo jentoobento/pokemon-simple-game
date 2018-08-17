@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import * as CreateMap from './CreateMap';
+import './ChoosePokemon.css'
 
 class ChoosePokemon extends React.Component {
     constructor(props) {
@@ -15,9 +16,8 @@ class ChoosePokemon extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ message: 'assembling team....' })
-        // get random num 1-802
-        let num1 = Math.floor(Math.random() * 803) + 1;
+        this.setState({ message: 'assembling team....' });
+        let num1 = Math.floor(Math.random() * 803) + 1; // get random num 1-802
         let num2 = Math.floor(Math.random() * 803) + 1;
         let num3 = Math.floor(Math.random() * 803) + 1;
         let num4 = Math.floor(Math.random() * 803) + 1;
@@ -79,20 +79,15 @@ class ChoosePokemon extends React.Component {
                     <h1 class="my-4">Your Team
                         <small> {this.state.message}</small>
                     </h1>
-                    <p>a random team will be chosen, you can swap once<br />
-                        <button type="button" className="btn btn-danger" onClick={this.getRandomPoke}>I Choose You!!!</button>&nbsp;
-                        {this.state.btnClick && <button type="button" className="btn btn-default" onClick={this.fightHandler}>Fight with this team!</button>}
+                    <p>A random team will be chosen, you can swap once<br />
+                        <button type="button" className="btn btn-danger" id="choose-btn" onClick={this.getRandomPoke}>I Choose You!!!</button>&nbsp;
+                        {this.state.btnClick && <button type="button" className="btn btn-default" id="fight-btn" onClick={this.fightHandler}>Fight with this team!</button>}
+                    <button type="button" className="btn btn-default" id="cancel-btn" onClick={this.cancelHandler}>Cancel</button>
                     </p>
                     <div class="row">
                         {teamHtml}
                     </div>
-                    <button type="button" className="btn btn-default" onClick={this.cancelHandler}>Cancel</button>
                 </div>
-                {/* <button type="button" style={{ "backgroundColor": "#d14142", "color": "white" }} className="btn btn" onClick={this.getRandomPoke}>I Choose You!!!</button>
-                <button type="button" style={{ "backgroundColor": "#000", "color": "white" }} className="btn btn" onClick={this.cancelHandler}>Retreat coward</button>
-                <button type="button" className="btn btn-default" onClick={this.fightHandler}>fight with this team!</button>
-                <p>{this.state.message}</p>
-                {teamHtml} */}
             </React.Fragment>
         )
     }

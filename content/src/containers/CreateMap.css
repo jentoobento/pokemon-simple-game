@@ -1,0 +1,16 @@
+.pokeball-img {
+    box-shadow: 0 0 0 0;
+    margin-left: -5px;
+}
+.sprite-img {
+    width: 300px;
+    height: 300px;
+}
+.swap-btn {
+    border: 1px #000;
+    border-style: solid;
+    border-radius: 15px;
+}
+section {
+    margin-left: 32%;
+}

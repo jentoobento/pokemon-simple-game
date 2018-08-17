@@ -27,9 +27,7 @@ class UserCreatedTeamList extends React.Component {
             .catch(err => console.log('error getting user created items', err))
     }
 
-    goBackHandler = e => {
-        this.props.history.goBack();
-    }
+    goBackHandler = e => this.props.history.goBack();
 
     deleteHandler(e) {
         const id = e.target.parentElement.parentElement.id;
@@ -40,9 +38,7 @@ class UserCreatedTeamList extends React.Component {
         })
             .then(() => {
                 const newList = this.state.allUserCreatedPokes.filter(poke => poke._id !== id);
-                this.setState({
-                    allUserCreatedPokes: newList
-                })
+                this.setState({ allUserCreatedPokes: newList })
             })
             .catch(err => console.log('error could not delete', err))
     }
@@ -57,9 +53,9 @@ class UserCreatedTeamList extends React.Component {
 
         return (
             <React.Fragment>
-                <div className="col-md-12 container">
-                    <h1>all ur fugly things</h1>
-                    <button type="button" className="btn btn-warning" onClick={this.goBackHandler}>go back</button>
+                <div className="container">
+                    <h1>Creature list</h1>
+                    <button type="button" className="btn btn-default" onClick={this.goBackHandler}>Go back</button>
                     <br />
                     {allItemsHtml}
                 </div>

@@ -2,24 +2,15 @@ import React from 'react';
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
+import './CreateTeam.css';
 
 class CreateTeam extends React.Component {
-    // constructor(props) {
-    //     super(props);
-        // this.state = {
-        //     name: '',
-        //     attack: '',
-        //     specialAttack: '',
-        //     imageUrl: 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405'
-        // };
-    // }
-
     state = {
         name: '',
         attack: '',
         specialAttack: '',
-        imageUrl: 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405'
-    
+        imageUrl: '',
+        preview: 'https://vignette.wikia.nocookie.net/joke-battles/images/d/d8/MissingNo..png/revision/latest?cb=20160129051405'
     }
 
     componentDidMount() {
@@ -33,7 +24,8 @@ class CreateTeam extends React.Component {
                         name: response.data.name,
                         attack: response.data.moves[0].move.name,
                         specialAttack: response.data.moves[1].move.name,
-                        imageUrl: response.data.sprites.front_default
+                        imageUrl: response.data.sprites.front_default,
+                        preview: response.data.sprites.front_default
                     })
                 })
                 .catch(err => console.log(err))
@@ -44,16 +36,17 @@ class CreateTeam extends React.Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    onDrop = (acceptedFiles) => {
-        this.setState(prev => {
-            const newState = {
-                ...prev,
-                imageName: acceptedFiles[0].name,
-                imagePreview: acceptedFiles[0].preview
-            }
-            return newState;
-        })
-    }
+    // ******** DROP ZONE NOT HOOKED UP TO CLOUD SERVICES ******* //
+    // onDrop = (acceptedFiles) => {
+    //     this.setState(prev => {
+    //         const newState = {
+    //             ...prev,
+    //             imageName: acceptedFiles[0].name,
+    //             imagePreview: acceptedFiles[0].preview
+    //         }
+    //         return newState;
+    //     })
+    // }
 
     goBackHandler = () => this.props.history.goBack();
 
@@ -73,7 +66,7 @@ class CreateTeam extends React.Component {
                 { base_stat: Math.floor(Math.random() * (30 - 20 + 1) + 20), stat: { name: "special-attack" } }, // ap 5
                 { base_stat: Math.floor(Math.random() * 26) + 1, stat: { name: "defense" } }, // percentage blocked when defending, ap 5
                 { base_stat: Math.floor(Math.random() * 16) + 1, stat: { name: "attack" } }, // ap 5
-                { base_stat: Math.floor(Math.random() * (99 - 30 + 1) + 30), stat: { name: "hp" } },
+                { base_stat: Math.floor(Math.random() * (99 - 30 + 1) + 30), stat: { name: "hp" } }, // amount must reach zero to be counted as ko
             ]
         }
         let method = this.props.match.params.id ? 'PUT' : 'POST';
@@ -92,48 +85,49 @@ class CreateTeam extends React.Component {
             <form className="container">
                 <FormGroup controlId="formBasicText">
                     <h1>Enter details</h1>
-                    <ControlLabel>name</ControlLabel>
+                    <ControlLabel>Pokemon Name</ControlLabel>
                     <FormControl
+                        className="text-box"
                         type="text"
                         value={this.state.name}
-                        placeholder="Enter text"
+                        placeholder="Enter the name of your newly discovered creature"
                         name="name"
                         onChange={this.onChangeHandler} />
-                    <ControlLabel>attack name</ControlLabel>
+                    <ControlLabel>First Move</ControlLabel>
                     <FormControl
                         type="text"
                         value={this.state.attack}
-                        placeholder="Enter text"
+                        placeholder="Enter the name of this creature's commonly used move"
                         name="attack"
                         onChange={this.onChangeHandler} />
-                    <ControlLabel>special attack name</ControlLabel>
+                    <ControlLabel>Secondary Move</ControlLabel>
                     <FormControl
                         type="text"
                         value={this.state.specialAttack}
-                        placeholder="Enter text"
+                        placeholder="Enter the name of this creature's special move"
                         name="specialAttack"
                         onChange={this.onChangeHandler} />
-                    <ControlLabel>image link</ControlLabel>
+                    <ControlLabel>Image</ControlLabel>
                     <FormControl
                         type="text"
                         value={this.state.imageUrl}
-                        placeholder="Enter link to image"
+                        placeholder="Enter a link to a picture of this creature"
                         name="imageUrl"
                         onChange={this.onChangeHandler} />
-                    <ControlLabel>dropzone</ControlLabel>
+                    {/* <ControlLabel>dropzone</ControlLabel>
                     <Dropzone
                         accept="image/*"
                         onDrop={this.onDrop}
                         type="file"
                         name="imageUrl"
                         className="form-control rounded text-muted">
-                        drag file or click to add
-                    </Dropzone>
-                    <ControlLabel>image preview </ControlLabel>
-                    <img src={this.state.imageUrl} width="100px" height="100px" />
+                        Drag file here or click to add
+                    </Dropzone> */}
+                    <ControlLabel>Preview:</ControlLabel>
+                    <img src={this.state.imageUrl ? this.state.imageUrl : this.state.preview} width="100px" height="100px" />
                 </FormGroup>
-                <button type="button" className="btn btn-primary" onClick={this.continueHandler}>continue</button>
-                <button type="button" className="btn btn-warning" onClick={this.goBackHandler}>go back</button>
+                <button type="button" className="btn btn-danger continue-btn" onClick={this.continueHandler}>Add</button>
+                <button type="button" className="btn btn-default back-btn" onClick={this.goBackHandler}>Go back</button>
             </form>
         )
     }
