@@ -1,5 +1,5 @@
 import React from 'react';
-import './CreateMap.css';
+import './css/CreateMap.css';
 
 export const CreateMap = (poke, index, listType, fnDelete, fnEdit) => {
     let middleIndex = poke.moves.length % 2 === 0 ? poke.moves.length / 2 : Math.floor(poke.moves.length / 2)

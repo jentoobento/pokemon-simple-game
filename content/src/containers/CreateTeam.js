@@ -2,7 +2,7 @@ import React from 'react';
 import Dropzone from 'react-dropzone'
 import axios from 'axios'
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
-import './CreateTeam.css';
+import './css/CreateTeam.css';
 
 class CreateTeam extends React.Component {
     state = {

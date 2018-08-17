@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import * as CreateMap from './CreateMap';
-import './ChoosePokemon.css'
+import './css/ChoosePokemon.css'
 
 class ChoosePokemon extends React.Component {
     constructor(props) {
